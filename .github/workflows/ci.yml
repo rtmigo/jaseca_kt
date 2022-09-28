@@ -28,7 +28,7 @@ jobs:
           cache: gradle
 
       - name: Run unit tests
-        run: gradle fullTest --no-daemon --info
+        run: gradle test --no-daemon --info
 
   test-as-dependency:
     runs-on: ${{ matrix.os }}

@@ -17,6 +17,9 @@ import java.io.Closeable
 import java.nio.file.Path
 import kotlin.time.*
 
+@RequiresOptIn
+annotation class Experimental
+
 typealias Jase = java.io.Serializable
 
 class JaseFileCacheConfig(
@@ -363,3 +366,16 @@ inline fun <reified K : Jase, reified V : Jase> filecache(
     directory: Path,
     noinline config: JaseFileCacheConfig.() -> Unit = {},
 ) = JaseFileCache.inDir<K, V>(directory, config)
+
+/**
+ * Creates a [JaseFileCache] that stores data in the system temporary directory. [id] is an
+ * arbitrary string that helps distinguish caches from each other.
+ *
+ * ```
+ * filecache<String, Int>("myCache123")
+ * ```
+ **/
+inline fun <reified K : Jase, reified V : Jase> filecache(
+    id: String,
+    noinline config: JaseFileCacheConfig.() -> Unit = {},
+) = JaseFileCache.inTempDir<K, V>(id, config)

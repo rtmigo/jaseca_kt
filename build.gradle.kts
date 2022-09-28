@@ -1,10 +1,15 @@
 plugins {
-    kotlin("jvm") version "1.7.10"
+    kotlin("jvm") // version "1.7.10"
+    id("java-library")
+    java
 }
 
 repositories {
     mavenCentral()
 }
+
+group = "io.github.rtmigo"
+version = "0.0-SNAPSHOT"
 
 dependencies {
     implementation("org.ehcache:ehcache:3.10.1")
@@ -16,4 +21,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.register("pkgver") {
+    doLast {
+        println(project.version.toString())
+    }
 }
