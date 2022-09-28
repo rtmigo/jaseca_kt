@@ -6,14 +6,13 @@ from tempp import *
 
 module = "io.github.rtmigo:jasecache"
 
-url = "https://github.com/rtmigo/jasecache_kt.git"
+url = "https://github.com/rtmigo/jaseca_kt.git"
 
 code = """
-    import io.github.rtmigo.jasecache.*
+    import io.github.rtmigo.jaseca.*
     import java.nio.file.Paths
     
-    
-    @OptIn(io.github.rtmigo.jasecache.Experimental::class)
+    @OptIn(io.github.rtmigo.jaseca.Experimental::class)
 
     fun main() {
         filecache<String,Int>("id123").use {
@@ -49,7 +48,7 @@ with TempProject(
             # additional settings, if necessary
             "settings.gradle.kts": """
                 sourceControl {
-                    gitRepository(java.net.URI("__URL__")) { // # .git
+                    test_as_github_module.py(java.net.URI("__URL__")) { // # .git
                         producesModule("__MODULE__")
                     }
                 }

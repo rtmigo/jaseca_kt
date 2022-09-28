@@ -1,4 +1,4 @@
-# [jasecache](https://github.com/rtmigo/jasecache_kt)
+# [jaseca](https://github.com/rtmigo/jaseca_kt)
 
 Easy to use file cache for Kotlin/JVM.
 
@@ -6,7 +6,7 @@ Stores data in a directory on a local drive. Allows you to keep data of any type
 `java.io.Serializable`. Uses [Ehcache](https://www.ehcache.org/) internally.
 
 ```kotlin
-import io.github.rtmigo.jasecache.filecache
+import io.github.rtmigo.jaseca.filecache
 import java.nio.file.Paths
 
 fun main() {
@@ -22,6 +22,8 @@ fun main() {
 }
 ```
 
+"Jaseca" stands for **JA**va.io.**SE**rializable **CA**che.
+
 
 # Install
 
@@ -29,8 +31,8 @@ fun main() {
 
 ```kotlin
 sourceControl {
-    gitRepository(java.net.URI("https://github.com/rtmigo/jasecache_kt.git")) {
-        producesModule("io.github.rtmigo:jasecache")
+    gitRepository(java.net.URI("https://github.com/rtmigo/jaseca_kt.git")) {
+        producesModule("io.github.rtmigo:jaseca")
     }
 }
 ```
@@ -39,7 +41,7 @@ sourceControl {
 
 ```kotlin
 dependencies {
-    implementation("io.github.rtmigo:jasecache") {
+    implementation("io.github.rtmigo:jaseca") {
         version { branch = "staging" }
     }
 }
@@ -50,7 +52,7 @@ dependencies {
 ### Configure, write, read
 
 ```kotlin
-import io.github.rtmigo.jasecache.filecache
+import io.github.rtmigo.jaseca.filecache
 import java.nio.file.Paths
 import kotlin.time.Duration.Companion.minutes
 
@@ -76,7 +78,7 @@ fun main() {
 Just inherit your Kotlin class from `java.io.Serializable` to make it compatible.
 
 ```kotlin
-import io.github.rtmigo.jasecache.filecache
+import io.github.rtmigo.jaseca.filecache
 import java.nio.file.Paths
 
 data class Planet(val radius: Double, val period: Double)

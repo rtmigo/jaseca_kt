@@ -9,7 +9,7 @@
 
 @file:OptIn(Experimental::class, Experimental::class)
 
-package io.github.rtmigo.jasecache
+package io.github.rtmigo.jaseca
 
 import org.ehcache.PersistentCacheManager
 import org.ehcache.config.builders.*

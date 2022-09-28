@@ -1,4 +1,4 @@
-rootProject.name = "jasecache"
+rootProject.name = "jaseca"
 
 pluginManagement.resolutionStrategy.eachPlugin {
     if (requested.id.id.startsWith("org.jetbrains.kotlin.")) {

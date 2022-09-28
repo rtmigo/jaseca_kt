@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package io.github.rtmigo.jasecache
+package io.github.rtmigo.jaseca
 
 import java.nio.file.*
 

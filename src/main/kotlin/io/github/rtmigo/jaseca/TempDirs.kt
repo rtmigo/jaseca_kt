@@ -1,4 +1,4 @@
-package io.github.rtmigo.jasecache
+package io.github.rtmigo.jaseca
 
 import java.nio.file.Path
 
