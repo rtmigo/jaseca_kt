@@ -112,6 +112,7 @@ class JaseFileCache<K : Jase, V : Jase> private constructor(
                             ResourcePoolsBuilder.newResourcePoolsBuilder()
                                 .heap(cfg.maxEntries.toLong(), EntryUnit.ENTRIES)
                                 .disk(cfg.maxSizeBytes.toLong(), MemoryUnit.B, true))
+
                         .let {
                             if (cfg.timeToLive != null)
                                 it.withExpiry(

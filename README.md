@@ -73,6 +73,9 @@ fun main() {
 }
 ```
 
+:warning: You should always use the cache inside `use { }` block or call `.close()` 
+after use. Otherwise, the data may not be saved to disk.
+
 ### Save structured data
 
 Just inherit your Kotlin class from `java.io.Serializable` to make it compatible.
