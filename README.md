@@ -1,9 +1,26 @@
 # jasecache [WIP]
 
-Нужно подключать зависимость:
+# Install
+
+#### settings.gradle.kts
 
 ```kotlin
-implementation("org.ehcache:ehcache:3.10.1")
+sourceControl {
+    gitRepository(java.net.URI("https://github.com/rtmigo/jasecache_kt.git")) {
+        producesModule("io.github.rtmigo:jasecache")
+    }
+}
+```
+
+#### build.gradle.kts
+
+```kotlin
+dependencies {
+    implementation("io.github.rtmigo:jasecache") {
+        version { branch = "staging" }
+    }
+    implementation("org.ehcache:ehcache:3.10.1")
+}
 ```
 
 # Use
