@@ -4,7 +4,7 @@ from pathlib import Path
 
 from tempp import *
 
-module = "io.github.rtmigo:jasecache"
+module = "io.github.rtmigo:jaseca"
 
 url = "https://github.com/rtmigo/jaseca_kt.git"
 
