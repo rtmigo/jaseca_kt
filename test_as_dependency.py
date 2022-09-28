@@ -4,17 +4,22 @@ from pathlib import Path
 
 from tempp import *
 
-module = "io.github.rtmigo:later"
+module = "io.github.rtmigo:jasecache"
 
-url = "https://github.com/rtmigo/later_kt.git"
+url = "https://github.com/rtmigo/jasecache_kt.git"
 
 code = """
-    import io.github.rtmigo.later.*
+    import io.github.rtmigo.jasecache.*
+    import java.nio.file.Paths
     
-    @OptIn(io.github.rtmigo.later.Experimental::class)
+    
+    @OptIn(io.github.rtmigo.jasecache.Experimental::class)
 
     fun main() {
-        println("Am I late?".asLater().await())
+        filecache<String,Int>("id123").use {
+            it["A"] = 1
+            require(it["A"] == 1)
+        }
     }
 """
 
