@@ -2,7 +2,7 @@
 
 Easy to use file cache for Kotlin/JVM.
 
-Stores data in a directory on a local drive. Allows you to save any data that
+Stores data in a directory on a local drive. Allows you to keep data of any types that are 
 `java.io.Serializable`. Uses [Ehcache](https://www.ehcache.org/) internally.
 
 ```kotlin
@@ -80,7 +80,7 @@ import io.github.rtmigo.jasecache.filecache
 import java.nio.file.Paths
 
 data class Planet(val radius: Double, val period: Double)
-    : java.io.Serializable  // this makes object compatible
+    : java.io.Serializable  // this makes the object compatible
 
 fun main() {
 
