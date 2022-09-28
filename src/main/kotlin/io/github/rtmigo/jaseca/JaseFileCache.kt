@@ -50,90 +50,59 @@ data class JaseEntry<K : Jase, V : Jase>(override val key: K, override val value
 /**
  * Persistent file cache for [java.io.Serializable] keys and values.
  **/
-class JaseFileCache<K : Jase, V : Jase> private constructor(
-    private val manager: PersistentCacheManager,
-    private val data: org.ehcache.Cache<K, V>,
+class JaseFileCache<K : Jase, V : Jase>(
+    val rootDir: Path,
+    config: JaseFileCacheConfig.() -> Unit = {},
+    classK: Class<K>,
+    classV: Class<V>,
+    //private val manager: PersistentCacheManager,
+    //private val data: org.ehcache.Cache<K, V>,
 ) : Closeable {
+
+    private val manager: PersistentCacheManager
+    private val data: org.ehcache.Cache<K, V>
+
+    init {
+        val alias = "cache"
+
+        val cfg = JaseFileCacheConfig().apply(config)
+
+        CacheManagerBuilder.newCacheManagerBuilder()
+            .with(
+                CacheManagerBuilder.persistence(rootDir.toFile()))
+            .withCache(
+                alias,
+                CacheConfigurationBuilder
+                    .newCacheConfigurationBuilder(
+                        classK,
+                        classV,
+                        ResourcePoolsBuilder.newResourcePoolsBuilder()
+                            .heap(cfg.maxEntries.toLong(), EntryUnit.ENTRIES)
+                            .disk(cfg.maxSizeBytes.toLong(), MemoryUnit.B, true))
+
+                    .let {
+                        if (cfg.timeToLive != null)
+                            it.withExpiry(
+                                ExpiryPolicyBuilder.timeToLiveExpiration(
+                                    cfg.timeToLive!!.toJavaDuration()))
+                        else
+                            it
+                    }.let {
+                        if (cfg.timeToIdle != null)
+                            it.withExpiry(
+                                ExpiryPolicyBuilder.timeToIdleExpiration(
+                                    cfg.timeToIdle!!.toJavaDuration()))
+                        else
+                            it
+                    }
+            ).build(true).let { manager ->
+                this.manager = manager
+                this.data = manager.getCache(alias, classK, classV)
+            }
+    }
 
     override fun close() {
         this.manager.close()
-    }
-
-    companion object {
-        /** Fast way to create a cache in temporary directory.
-         *
-         * ```
-         * val cache = JisFileCache.createInTempDir("myCacheId")
-         * ```
-         *
-         * The temporary directory will remain on disk after program completion. So the cache can be
-         * reused between restarts. But after a reboot, there is a high chance that the files will
-         * be deleted.
-         *
-         **/
-        inline fun <reified K : Jase, reified V : Jase> inTempDir(
-            id: String,
-            noinline config: JaseFileCacheConfig.() -> Unit = {},
-        ) = createJava<K, V>(toTempSubdir(id), config, K::class.java, V::class.java)
-
-
-
-        /** Create new cache instance. */
-        inline fun <reified K : Jase, reified V : Jase> inDir(
-            directory: Path,
-            noinline config: JaseFileCacheConfig.() -> Unit = {},
-        ): JaseFileCache<K, V> = createJava(
-            rootDir = directory,
-            config = config,
-            classK = K::class.java,
-            classV = V::class.java
-        )
-
-        /** Prefer using [inDir] in Kotlin. Don't use this directly. */
-        fun <K : Jase, V : Jase> createJava(
-            rootDir: Path,
-            config: JaseFileCacheConfig.() -> Unit = {},
-            classK: Class<K>,
-            classV: Class<V>,
-        ): JaseFileCache<K, V> {
-            val alias = "cache"
-
-            val cfg = JaseFileCacheConfig().apply(config)
-
-            return CacheManagerBuilder.newCacheManagerBuilder()
-                .with(
-                    CacheManagerBuilder.persistence(rootDir.toFile()))
-                .withCache(
-                    alias,
-                    CacheConfigurationBuilder
-                        .newCacheConfigurationBuilder(
-                            classK,
-                            classV,
-                            ResourcePoolsBuilder.newResourcePoolsBuilder()
-                                .heap(cfg.maxEntries.toLong(), EntryUnit.ENTRIES)
-                                .disk(cfg.maxSizeBytes.toLong(), MemoryUnit.B, true))
-
-                        .let {
-                            if (cfg.timeToLive != null)
-                                it.withExpiry(
-                                    ExpiryPolicyBuilder.timeToLiveExpiration(
-                                        cfg.timeToLive!!.toJavaDuration()))
-                            else
-                                it
-                        }.let {
-                            if (cfg.timeToIdle != null)
-                                it.withExpiry(
-                                    ExpiryPolicyBuilder.timeToIdleExpiration(
-                                        cfg.timeToIdle!!.toJavaDuration()))
-                            else
-                                it
-                        }
-                ).build(true).let { manager ->
-                    JaseFileCache<K, V>(
-                        manager,
-                        manager.getCache(alias, classK, classV))
-                }
-        }
     }
 
     /**
@@ -363,7 +332,11 @@ inline fun <K : Jase, V : Jase> JaseFileCache<K, V>.getOrPut(key: K, defaultValu
 inline fun <reified K : Jase, reified V : Jase> filecache(
     directory: Path,
     noinline config: JaseFileCacheConfig.() -> Unit = {},
-) = JaseFileCache.inDir<K, V>(directory, config)
+) = JaseFileCache<K, V>(
+    rootDir=directory,
+    classK = K::class.java,
+    classV = V::class.java,
+    config=config)
 
 /**
  * Creates a [JaseFileCache] that stores data in the system temporary directory. [id] is an
@@ -376,4 +349,4 @@ inline fun <reified K : Jase, reified V : Jase> filecache(
 inline fun <reified K : Jase, reified V : Jase> filecache(
     id: String,
     noinline config: JaseFileCacheConfig.() -> Unit = {},
-) = JaseFileCache.inTempDir<K, V>(id, config)
+) = filecache<K,V>(toTempSubdir(id), config)
