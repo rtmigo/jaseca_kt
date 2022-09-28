@@ -7,7 +7,7 @@
  * SPDX-FileCopyrightText: (c) Terracotta, Inc.
  */
 
-@file:OptIn(Experimental::class)
+@file:OptIn(Experimental::class, Experimental::class)
 
 package io.github.rtmigo.jasecache
 
@@ -50,7 +50,6 @@ data class JaseEntry<K : Jase, V : Jase>(override val key: K, override val value
 /**
  * Persistent file cache for [java.io.Serializable] keys and values.
  **/
-@io.github.rtmigo.jasecache.Experimental
 class JaseFileCache<K : Jase, V : Jase> private constructor(
     private val manager: PersistentCacheManager,
     private val data: org.ehcache.Cache<K, V>,
@@ -75,14 +74,9 @@ class JaseFileCache<K : Jase, V : Jase> private constructor(
         inline fun <reified K : Jase, reified V : Jase> inTempDir(
             id: String,
             noinline config: JaseFileCacheConfig.() -> Unit = {},
-        ) = createJava<K, V>(toTempCacheDir(id), config, K::class.java, V::class.java)
+        ) = createJava<K, V>(toTempSubdir(id), config, K::class.java, V::class.java)
 
-        fun toTempCacheDir(id: String): Path {
-            val parent = systemTempDir()
-            val result = parent.resolve("jfc_$id")
-            require(result.parent == parent) { "Wrong id value: '$id'" }
-            return result
-        }
+
 
         /** Create new cache instance. */
         inline fun <reified K : Jase, reified V : Jase> inDir(

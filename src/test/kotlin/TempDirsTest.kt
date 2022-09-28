@@ -4,15 +4,37 @@
  */
 
 
-import io.github.rtmigo.jasecache.systemTempDir
+import io.github.rtmigo.jasecache.*
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import org.junit.jupiter.api.Test
 import kotlin.io.path.exists
 
+@OptIn(Experimental::class)
 class TempDirsTest {
     @Test
     fun getTempDir() {
         println(systemTempDir())
         systemTempDir().exists().shouldBeTrue()
+    }
+
+    @Test
+    fun `filecache created with id does not leave the temp dir`() {
+        filecache<Int, Long>("a123")
+
+        shouldThrow<IllegalIdException> {
+            filecache<Int, Long>("x/y")
+        }
+
+        shouldThrow<IllegalIdException> {
+            filecache<Int, Long>("../outer")
+        }
+
+        shouldThrow<IllegalIdException> {
+            filecache<Int, Long>("")
+        }
+        shouldThrow<IllegalIdException> {
+            filecache<Int, Long>("a123456789012345678901234567890")
+        }
     }
 }
