@@ -4,6 +4,8 @@
  */
 
 
+@file:OptIn(Experimental::class)
+
 import io.github.rtmigo.jasecache.*
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.nulls.shouldBeNull

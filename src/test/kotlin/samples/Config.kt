@@ -1,5 +1,8 @@
+@file:OptIn(Experimental::class)
+
 package samples
 
+import io.github.rtmigo.jasecache.Experimental
 import io.github.rtmigo.jasecache.filecache
 import java.nio.file.Paths
 import kotlin.time.Duration.Companion.minutes

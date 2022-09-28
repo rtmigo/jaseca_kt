@@ -7,6 +7,8 @@
  * SPDX-FileCopyrightText: (c) Terracotta, Inc.
  */
 
+@file:OptIn(Experimental::class)
+
 package io.github.rtmigo.jasecache
 
 import org.ehcache.PersistentCacheManager
@@ -48,6 +50,7 @@ data class JaseEntry<K : Jase, V : Jase>(override val key: K, override val value
 /**
  * Persistent file cache for [java.io.Serializable] keys and values.
  **/
+@io.github.rtmigo.jasecache.Experimental
 class JaseFileCache<K : Jase, V : Jase> private constructor(
     private val manager: PersistentCacheManager,
     private val data: org.ehcache.Cache<K, V>,

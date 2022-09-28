@@ -1,4 +1,4 @@
-# [jasecache](https://github.com/rtmigo/jasecache_kt) [WIP]
+# [jasecache](https://github.com/rtmigo/jasecache_kt)
 
 Easy to use file cache for Kotlin/JVM.
 
@@ -42,7 +42,6 @@ dependencies {
     implementation("io.github.rtmigo:jasecache") {
         version { branch = "staging" }
     }
-    implementation("org.ehcache:ehcache:3.10.1")
 }
 ```
 
