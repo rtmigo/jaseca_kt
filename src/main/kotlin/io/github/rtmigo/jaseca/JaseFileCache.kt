@@ -9,7 +9,7 @@
 
 @file:OptIn(Experimental::class, Experimental::class)
 
-package io.github.rtmigo.jasecache
+package io.github.rtmigo.jaseca
 
 import org.ehcache.PersistentCacheManager
 import org.ehcache.config.builders.*
@@ -112,6 +112,7 @@ class JaseFileCache<K : Jase, V : Jase> private constructor(
                             ResourcePoolsBuilder.newResourcePoolsBuilder()
                                 .heap(cfg.maxEntries.toLong(), EntryUnit.ENTRIES)
                                 .disk(cfg.maxSizeBytes.toLong(), MemoryUnit.B, true))
+
                         .let {
                             if (cfg.timeToLive != null)
                                 it.withExpiry(

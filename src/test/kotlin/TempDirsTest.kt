@@ -4,7 +4,7 @@
  */
 
 
-import io.github.rtmigo.jasecache.*
+import io.github.rtmigo.jaseca.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.booleans.shouldBeTrue
 import org.junit.jupiter.api.Test

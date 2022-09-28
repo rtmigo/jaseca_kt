@@ -4,16 +4,15 @@ from pathlib import Path
 
 from tempp import *
 
-module = "io.github.rtmigo:jasecache"
+module = "io.github.rtmigo:jaseca"
 
-url = "https://github.com/rtmigo/jasecache_kt.git"
+url = "https://github.com/rtmigo/jaseca_kt.git"
 
 code = """
-    import io.github.rtmigo.jasecache.*
+    import io.github.rtmigo.jaseca.*
     import java.nio.file.Paths
     
-    
-    @OptIn(io.github.rtmigo.jasecache.Experimental::class)
+    @OptIn(io.github.rtmigo.jaseca.Experimental::class)
 
     fun main() {
         filecache<String,Int>("id123").use {
