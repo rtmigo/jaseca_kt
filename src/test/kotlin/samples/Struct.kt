@@ -1,3 +1,6 @@
+@file:OptIn(Experimental::class)
+
+import io.github.rtmigo.jasecache.Experimental
 import io.github.rtmigo.jasecache.filecache
 import java.nio.file.Paths
 
