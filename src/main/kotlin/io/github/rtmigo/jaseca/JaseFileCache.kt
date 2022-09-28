@@ -49,14 +49,20 @@ data class JaseEntry<K : Jase, V : Jase>(override val key: K, override val value
 
 /**
  * Persistent file cache for [java.io.Serializable] keys and values.
+ *
+ * Do noy use this constructor directly, use [filecache] instead:
+ *
+ * ```kotlin
+ * filecache(Paths.get("/my/cache")).use {
+ *   // ...
+ * }
+ * ```
  **/
 class JaseFileCache<K : Jase, V : Jase>(
     val rootDir: Path,
     config: JaseFileCacheConfig.() -> Unit = {},
     classK: Class<K>,
     classV: Class<V>,
-    //private val manager: PersistentCacheManager,
-    //private val data: org.ehcache.Cache<K, V>,
 ) : Closeable {
 
     private val manager: PersistentCacheManager
