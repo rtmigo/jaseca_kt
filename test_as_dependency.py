@@ -17,8 +17,9 @@ code = """
 
     fun main() {
         filecache<String,Int>("id123").use {
-            it["A"] = 1
-            require(it["A"] == 1)
+            it["A"] = 123
+            require(it["A"] == 123)
+            println(it["A"])
         }
     }
 """
@@ -72,6 +73,6 @@ with TempProject(
     print("-" * 80)
 
     assert result.returncode == 0
-    assert result.stdout == "Am I late?\n", result.stdout
+    assert result.stdout == "123\n", result.stdout
 
 print("Everything is OK!")

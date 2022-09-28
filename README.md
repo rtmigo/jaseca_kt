@@ -1,4 +1,27 @@
-# jasecache [WIP]
+# [jasecache](https://github.com/rtmigo/jasecache_kt) [WIP]
+
+Easy to use file cache for Kotlin/JVM.
+
+Stores data in a directory on a local drive. Allows you to save any data that
+`java.io.Serializable`. Uses [Ehcache](https://www.ehcache.org/) internally.
+
+```kotlin
+import io.github.rtmigo.jasecache.filecache
+import java.nio.file.Paths
+
+fun main() {
+
+    filecache<String, Int>(Paths.get("/path/to/cache_dir"))
+        .use { cache ->
+            // writing to cache
+            cache["first key"] = 10
+            cache["second key"] = 20
+            // reading from cache
+            println(cache["first key"])
+        }
+}
+```
+
 
 # Install
 
@@ -25,26 +48,7 @@ dependencies {
 
 # Use
 
-### Create, write, read
-
-```kotlin
-import io.github.rtmigo.jasecache.filecache
-import java.nio.file.Paths
-
-fun main() {
-
-    filecache<String, Int>(Paths.get("/path/to/cache_dir"))
-        .use { cache ->
-            // writing to cache
-            cache["first key"] = 10
-            cache["second key"] = 20
-            // reading from cache
-            println(cache["first key"])
-        }
-}
-```
-
-### Configure
+### Configure, write, read
 
 ```kotlin
 import io.github.rtmigo.jasecache.filecache
@@ -59,7 +63,11 @@ fun main() {
         timeToIdle = 15.minutes
     }
         .use { cache ->
-            // use cache
+            // writing to cache
+            cache["first key"] = 10
+            cache["second key"] = 20
+            // reading from cache
+            println(cache["first key"])
         }
 }
 ```
