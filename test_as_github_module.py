@@ -48,7 +48,7 @@ with TempProject(
             # additional settings, if necessary
             "settings.gradle.kts": """
                 sourceControl {
-                    test_as_github_module.py(java.net.URI("__URL__")) { // # .git
+                    gitRepository(java.net.URI("__URL__")) { // # .git
                         producesModule("__MODULE__")
                     }
                 }
