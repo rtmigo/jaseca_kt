@@ -7,7 +7,7 @@ package io.github.rtmigo.jaseca
 
 import java.nio.file.*
 
-fun withTempDir(block: (tempDir: Path) -> Unit) {
+internal fun withTempDir(block: (tempDir: Path) -> Unit) {
     val tempDir = kotlin.io.path.createTempDirectory()
     try {
         block(tempDir)
@@ -16,5 +16,5 @@ fun withTempDir(block: (tempDir: Path) -> Unit) {
     }
 }
 
-fun systemTempDir(): Path
+internal fun systemTempDir(): Path
     = Paths.get(System.getProperty("java.io.tmpdir"))

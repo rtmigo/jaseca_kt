@@ -3,7 +3,7 @@
 Easy to use file cache for Kotlin/JVM.
 
 Stores data in a directory on a local drive. Allows you to keep data of any types that are 
-`java.io.Serializable`. Uses [Ehcache](https://www.ehcache.org/) internally.
+`java.io.Serializable`.
 
 ```kotlin
 import io.github.rtmigo.jaseca.filecache
@@ -23,6 +23,8 @@ fun main() {
 ```
 
 "Jaseca" stands for **JA**va.io.**SE**rializable **CA**che.
+
+In fact, this is a thin wrapper around [Ehcache](https://www.ehcache.org/).
 
 
 # Install
