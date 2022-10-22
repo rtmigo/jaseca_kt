@@ -1,7 +1,7 @@
 /*
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-License-Identifier: ISC
  *
- * SPDX-FileCopyrightText: (c) 2022 Artyom IG <github.com/rtmigo>
+ * SPDX-FileCopyrightText: (c) 2022 Artsiom iG (rtmigo.github.com)
  *
  * This file also includes excerpts from the Ehcache documentation
  * SPDX-FileCopyrightText: (c) Terracotta, Inc.

@@ -99,7 +99,7 @@ fun main() {
 }
 ```
 
-## License
+# License
 
-Copyright © 2022 [Artyom IG](https://github.com/rtmigo).
-Released under the [Apache-2.0](LICENSE).
+Copyright © 2022 [Artsiom iG](https://github.com/rtmigo).
+Released under the [ISC License](LICENSE).

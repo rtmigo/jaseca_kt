@@ -1,6 +1,6 @@
 /*
- * SPDX-FileCopyrightText: (c) 2022 Artyom IG <github.com/rtmigo>
- * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: (c) 2022 Artsiom iG (rtmigo.github.com)
+ * SPDX-License-Identifier: ISC
  */
 
 package io.github.rtmigo.jaseca
